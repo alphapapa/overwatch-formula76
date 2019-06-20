@@ -4,6 +4,8 @@
 
 *Import code: X4CTK*
 
+*Links*: [[https://workshop.elohell.gg/t4GRDzr2u/Formula_76_Racing][Overwatch Workshop @ Elo Hell]]
+
 Complete laps by running through 4 checkpoints. Sprint to accelerate. /Splat!/ into a wall and lose your speed. Use jump pads and speed boosts at your own risk.
 
 Choose smoother routes as your speed changes. A good route at 20 m/s will be very difficult at 40 m/s.
