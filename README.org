@@ -1,0 +1,31 @@
+#+TITLE: Formula 76 Racing
+
+/An Overwatch custom game/
+
+Complete laps by running through 4 checkpoints. Sprint to accelerate. /Splat!/ into a wall and lose your speed. Use jump pads and speed boosts at your own risk.
+
+Choose smoother routes as your speed changes. A good route at 20 m/s will be very difficult at 40 m/s.
+
+28 tracks are included, based on deathmatch maps. Havana will be added soon.
+
+Leaderboard HUD includes:
+
++  Best lap time 
++  Fastest speed across finish line
+
+Personal HUD includes:
+
++  Last lap time
++  Current lap time
++  Difference from previous lap time
+
+Speed record across finish line: 72 m/s on Oasis City Center.
+
+Based on /Sprint Racing/ by *DarwinStreams*.
+
+* Notes
+
+Of course, this is not C code, but C-style syntax highlighting and indentation works well in editors.  
+
+In fact, C-style =//=-prefixed comments work in these rules: when pasted into Overwatch, the game ignores them.  But, of course, they will be lost when copying the rules back out of the game, so they're of limited use.
+
