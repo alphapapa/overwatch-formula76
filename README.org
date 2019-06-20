@@ -31,3 +31,81 @@ Of course, this is not C code, but C-style syntax highlighting and indentation w
 
 In fact, C-style =//=-prefixed comments work in these rules: when pasted into Overwatch, the game ignores them.  But, of course, they will be lost when copying the rules back out of the game, so they're of limited use.
 
+** Variables
+
+This list may be incomplete and is not guaranteed to be kept up-to-date, but it may be helpful.
+
+*** Global
+
++ =Z= :: Map number
+
+**** World positions
+
++  =A= :: Initial spawn position
+
+*Checkpoints*
++  =F= :: 1
++  =G= :: 2
++  =H= :: 3
++  =I= :: 4 (finish line)
+
+*Special*
++  =J= :: Jump pad position
++  =P= :: Speed boost power-up position
+
+**** Leaderboard
+
++  =U= :: Leaderboard HUD and player effects
+     -  Element 0 :: HUD entity for best lap time
+     -  Element 1 :: HUD entity for fastest time across finish line
+     -  Element 2 :: Created effect for player with best lap time
+     -  Element 3 :: Created effect for player with fastest time across finish line
+
+**** Records
+
++  =T= :: Top speeds and times
+     -  Element 0 :: Player with best lap time
+     -  Element 1 :: Best lap time
+     -  Element 2 :: Player with fastest time across finish line
+     -  Element 3 :: Fastest time across finish line
+
+*** Player
+
++  =O= :: Position of current checkpoint (updated from global variables =F= through =I=)
++  =V= :: Current intended velocity, as a percentage of normal speed
+
+**** Effects
+
++ =E= :: Speed-related effect (e.g. red sparkles at 20-29 m/s)
+
+**** Records
+
+Only 4 checkpoints are currently supported, but elements 5-10 are reserved for future checkpoints.
+
++  =C= :: Current lap time
++  =T= :: Lap times array
+     -  Element 0 :: Last lap time
+     -  Element 1 :: /unused/
+     -  Element 2 :: Elapsed match time at last checkpoint-2 crossing (unused)
+     -  Element 3 :: Elapsed match time at last checkpoint-3 crossing (unused)
+     -  Element 4 :: Elapsed match time at last checkpoint-4 crossing (finish line)
+     -  Element 11 :: Next-to-last lap time
+     -  Element 12 :: Difference between next-to-last and last lap times
++  =S= :: Current score (unused)
+
+**** Special
+
+These reset after 10 seconds.
+
++  =Q= :: Speed boost power-up eligibility
++  =S= :: Slowdown eligibility
+
+** Tasks
+
+*** TODO Stop setting player variable =S= to score
+
+=S= is actually used for tracking slowdown eligibility.
+
+*** TODO Use variable chasing to record lap time
+
+As seen in some parkour mods.  Rather than constantly computing lap times by comparing a recorded elapsed match time to the current elapsed match time, a variable can be used, chasing at a rate of 1.  The variable can be used in the HUD, and it will update very smoothly with--likely--no performance problems.  (In contrast, constantly computing the lap time and storing it in a variable seems to cause performance problems when there are 10-12 players in a game and the time is recomputed at an interval faster than 0.25 seconds.)
