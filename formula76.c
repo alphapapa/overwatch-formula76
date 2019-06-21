@@ -31,7 +31,7 @@ rule("Init: GV(z)=Map-number")
 	}
 }
 
-rule("Init: starting position, PV(q)=powerup-eligible")
+rule("INIT: starting position, PV(q)=powerup-eligible")
 {
 	event
 	{
@@ -1181,7 +1181,7 @@ rule("SLOWDOWN: Slowdown=GV(s), PV(s)=slowdown-eligible")
 	conditions
 	{
 		Global Variable(S) != 0;
-		Distance Between(Position Of(Event Player), Global Variable(S)) <= 2;
+		Distance Between(Position Of(Event Player), Global Variable(S)) <= 3;
 		Is Moving(Event Player) == True;
 		Player Variable(Event Player, S) == True;
 		Player Variable(Event Player, V) > 100;
@@ -1443,55 +1443,242 @@ rule("HUD: Player-lap-times-HUD-text=PV(u[0])")
 
 	actions
 	{
-          Skip If(Compare(Player Variable(Event Player, U), ==, 0), 1);
-          Destroy HUD Text(Value In Array(Player Variable(Event Player, U), 0));
-          Create HUD Text(Event Player, String("Time", Null, Null, Null), String("{0} sec", Value In Array(Player Variable(Event Player, T),
-                                                                                                           0), Null, Null), String("{0} sec", Player Variable(Event Player, C), Null, Null), Right, 0, White, White, White,
-                          Visible To and String);
-          Set Player Variable At Index(Event Player, U, 0, Last Text ID);
+		Skip If(Compare(Player Variable(Event Player, U), ==, 0), 1);
+		Destroy HUD Text(Value In Array(Player Variable(Event Player, U), 0));
+		Create HUD Text(Event Player, String("Time", Null, Null, Null), String("{0} sec", Value In Array(Player Variable(Event Player, T),
+			0), Null, Null), String("{0} sec", Player Variable(Event Player, C), Null, Null), Right, 0, White, White, White,
+			Visible To and String);
+		Set Player Variable At Index(Event Player, U, 0, Last Text ID);
 	}
 }
 
 rule("HUD: Player-relative-lap-times-HUD-text=PV(u[1])")
 {
-  event
-    {
-      Ongoing - Each Player;
-      All;
-      All;
-    }
+	event
+	{
+		Ongoing - Each Player;
+		All;
+		All;
+	}
 
-  conditions
-    {
-      Value In Array(Player Variable(Event Player, T), 12) != 0;
-    }
+	conditions
+	{
+		Value In Array(Player Variable(Event Player, T), 12) != 0;
+	}
 
-  actions
-    {
-      Create HUD Text(Event Player, Null, Null, String("{0}: {1}", String("Run", Null, Null, Null), Value In Array(Player Variable(
-                                                                                                                                   Event Player, T), 12), Null), Right, 1, White, White, White, Visible To and String);
-      Set Player Variable At Index(Event Player, U, 1, Last Text ID);
-    }
+	actions
+	{
+		Create HUD Text(Event Player, Null, Null, String("{0}: {1}", String("Run", Null, Null, Null), Value In Array(Player Variable(
+			Event Player, T), 12), Null), Right, 1, White, White, White, Visible To and String);
+		Set Player Variable At Index(Event Player, U, 1, Last Text ID);
+	}
 }
 
 rule("PLAYER STAT: Current lap time")
 {
-  event
-    {
-      Ongoing - Each Player;
-      All;
-      All;
-    }
+	event
+	{
+		Ongoing - Each Player;
+		All;
+		All;
+	}
 
-  conditions
-    {
-      Value In Array(Player Variable(Event Player, T), 4) > 0;
-    }
+	conditions
+	{
+		Value In Array(Player Variable(Event Player, T), 4) > 0;
+	}
 
-  actions
-    {
-      Set Player Variable(Event Player, C, Subtract(Total Time Elapsed, Value In Array(Player Variable(Event Player, T), 4)));
-      Wait(0.200, Ignore Condition);
-      Loop;
-    }
+	actions
+	{
+		Set Player Variable(Event Player, C, Subtract(Total Time Elapsed, Value In Array(Player Variable(Event Player, T), 4)));
+		Wait(0.200, Ignore Condition);
+		Loop;
+	}
+}
+
+rule("MAP: Havana (Checkpoints across stages)")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	conditions
+	{
+		Global Variable(Z) == 88;
+	}
+
+	actions
+	{
+		Set Global Variable(A, Vector(-58.444, 5.499, -27.063));
+		Set Global Variable(F, Vector(-96.363, 5.398, -39.877));
+		Set Global Variable(G, Vector(-27.211, 13.551, -51.218));
+		Set Global Variable(H, Vector(27.993, 11.548, -91.529));
+		Set Global Variable(I, Vector(139.848, 7.609, -46.608));
+		Set Global Variable(P, Vector(-54.604, 7.552, -72.609));
+		Set Global Variable(S, Vector(119.274, 7.977, -46.749));
+		Set Global Variable(J, Vector(118.265, 14.591, -58.110));
+		Set Global Variable At Index(X, 1, Vector(34.374, 13.551, -56.896));
+		Set Global Variable At Index(X, 2, Vector(34.451, 13.552, -62.568));
+		Set Global Variable At Index(X, 3, Vector(64.840, 7.362, -83.169));
+		Set Global Variable At Index(X, 4, Vector(68, 7.380, -83.559));
+		Set Global Variable At Index(X, 5, Vector(62.254, 7.552, -93.216));
+		Set Global Variable At Index(X, 6, Vector(58, 7.551, -93.216));
+		Set Global Variable At Index(X, 7, Vector(4.606, 7.549, -96.175));
+		Set Global Variable At Index(X, 8, Vector(0, 7.549, -96.175));
+	}
+}
+
+disabled rule("MAP: Havana (all checkpoints in first part)")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	conditions
+	{
+		Global Variable(Z) == 88;
+	}
+
+	actions
+	{
+		Set Global Variable(A, Vector(-58.444, 5.499, -27.063));
+		Set Global Variable(F, Vector(-96.368, 5.397, -40.221));
+		Set Global Variable(G, Vector(-49.486, 6.299, -32.768));
+		Set Global Variable(H, Vector(-24.909, 11.552, -97.665));
+		Set Global Variable(I, Vector(-25.282, 11.605, -71.365));
+		Set Global Variable(P, Vector(-54.530, 7.551, -77.611));
+		Set Global Variable(S, Vector(-15.853, 7.670, -64.424));
+		Set Global Variable(J, Vector(-45.281, 11.532, -42.785));
+		Set Global Variable At Index(X, 1, Vector(34.374, 13.551, -56.896));
+		Set Global Variable At Index(X, 2, Vector(34.451, 13.552, -62.568));
+		Set Global Variable At Index(X, 3, Vector(64.840, 7.362, -83.169));
+		Set Global Variable At Index(X, 4, Vector(68, 7.380, -83.559));
+		Set Global Variable At Index(X, 5, Vector(62.254, 7.552, -93.216));
+		Set Global Variable At Index(X, 6, Vector(58, 7.551, -93.216));
+		Set Global Variable At Index(X, 7, Vector(4.606, 7.549, -96.175));
+		Set Global Variable At Index(X, 8, Vector(0, 7.549, -96.175));
+	}
+}
+
+rule("INIT: Teleporters")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	conditions
+	{
+		Is Game In Progress == True;
+	}
+
+	actions
+	{
+		Create Effect(All Players(All Teams), Orb, Green, Value In Array(Global Variable(X), 1), 3, Visible To Position and Radius);
+		Create Effect(All Players(All Teams), Orb, Red, Value In Array(Global Variable(X), 2), 3, Visible To Position and Radius);
+		Create Effect(All Players(All Teams), Orb, Green, Value In Array(Global Variable(X), 3), 3, Visible To Position and Radius);
+		Create Effect(All Players(All Teams), Orb, Red, Value In Array(Global Variable(X), 4), 3, Visible To Position and Radius);
+		Create Effect(All Players(All Teams), Orb, Green, Value In Array(Global Variable(X), 5), 3, Visible To Position and Radius);
+		Create Effect(All Players(All Teams), Orb, Red, Value In Array(Global Variable(X), 6), 3, Visible To Position and Radius);
+		Create Effect(All Players(All Teams), Orb, Green, Value In Array(Global Variable(X), 7), 3, Visible To Position and Radius);
+		Create Effect(All Players(All Teams), Orb, Red, Value In Array(Global Variable(X), 8), 3, Visible To Position and Radius);
+	}
+}
+
+rule("TELEPORTER: 1-2")
+{
+	event
+	{
+		Ongoing - Each Player;
+		All;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, Value In Array(Global Variable(X), 1)) <= 3;
+	}
+
+	actions
+	{
+		Play Effect(All Players(All Teams), Ring Explosion, Green, Value In Array(Global Variable(X), 1), 10);
+		Play Effect(All Players(All Teams), Ring Explosion Sound, Green, Value In Array(Global Variable(X), 1), 10);
+		Teleport(Event Player, Value In Array(Global Variable(X), 2));
+		Play Effect(All Players(All Teams), Ring Explosion, Red, Value In Array(Global Variable(X), 2), 10);
+		Play Effect(All Players(All Teams), Ring Explosion Sound, Red, Value In Array(Global Variable(X), 2), 10);
+	}
+}
+
+rule("TELEPORTER: 3-4")
+{
+	event
+	{
+		Ongoing - Each Player;
+		All;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, Value In Array(Global Variable(X), 3)) <= 3;
+	}
+
+	actions
+	{
+		Play Effect(All Players(All Teams), Ring Explosion, Green, Value In Array(Global Variable(X), 3), 10);
+		Play Effect(All Players(All Teams), Ring Explosion Sound, Green, Value In Array(Global Variable(X), 3), 10);
+		Teleport(Event Player, Value In Array(Global Variable(X), 4));
+		Play Effect(All Players(All Teams), Ring Explosion, Red, Value In Array(Global Variable(X), 4), 10);
+		Play Effect(All Players(All Teams), Ring Explosion Sound, Red, Value In Array(Global Variable(X), 4), 10);
+	}
+}
+
+rule("TELEPORTER: 5-6")
+{
+	event
+	{
+		Ongoing - Each Player;
+		All;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, Value In Array(Global Variable(X), 5)) <= 3;
+	}
+
+	actions
+	{
+		Play Effect(All Players(All Teams), Ring Explosion, Green, Value In Array(Global Variable(X), 5), 10);
+		Play Effect(All Players(All Teams), Ring Explosion Sound, Green, Value In Array(Global Variable(X), 5), 10);
+		Teleport(Event Player, Value In Array(Global Variable(X), 6));
+		Play Effect(All Players(All Teams), Ring Explosion, Red, Value In Array(Global Variable(X), 6), 10);
+		Play Effect(All Players(All Teams), Ring Explosion Sound, Red, Value In Array(Global Variable(X), 6), 10);
+	}
+}
+
+rule("TELEPORTER: 7-8")
+{
+	event
+	{
+		Ongoing - Each Player;
+		All;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, Value In Array(Global Variable(X), 7)) <= 3;
+	}
+
+	actions
+	{
+		Play Effect(All Players(All Teams), Ring Explosion, Green, Value In Array(Global Variable(X), 7), 10);
+		Play Effect(All Players(All Teams), Ring Explosion Sound, Green, Value In Array(Global Variable(X), 7), 10);
+		Teleport(Event Player, Value In Array(Global Variable(X), 8));
+		Play Effect(All Players(All Teams), Ring Explosion, Red, Value In Array(Global Variable(X), 8), 10);
+		Play Effect(All Players(All Teams), Ring Explosion Sound, Red, Value In Array(Global Variable(X), 8), 10);
+	}
 }
