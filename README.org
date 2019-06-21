@@ -43,7 +43,12 @@ This list may be incomplete and is not guaranteed to be kept up-to-date, but it 
 
 **** World positions
 
+Not all maps have a jump pad, speed boost, or slowdown.
+
 +  =A= :: Initial spawn position
++  =J= :: Jump pad position
++  =P= :: Speed boost power-up position
++  =S= :: Slowdown circle position
 
 *Checkpoints*
 +  =F= :: 1
@@ -51,11 +56,7 @@ This list may be incomplete and is not guaranteed to be kept up-to-date, but it 
 +  =H= :: 3
 +  =I= :: 4 (finish line)
 
-*Special*
-+  =J= :: Jump pad position
-+  =P= :: Speed boost power-up position
-
-**** Leaderboard
+**** Leader effects
 
 +  =U= :: Leaderboard HUD and player effects
      -  Element 0 :: HUD entity for best lap time
