@@ -2,7 +2,7 @@
 
 /An Overwatch custom game/
 
-*Import code: X4CTK*
+*Import code: WDXFR*
 
 *Links*: [[https://workshop.elohell.gg/t4GRDzr2u/Formula_76_Racing][Overwatch Workshop @ Elo Hell]]
 
@@ -10,7 +10,7 @@ Complete laps by running through 4 checkpoints. Sprint to accelerate. /Splat!/ i
 
 Choose smoother routes as your speed changes. A good route at 20 m/s will be very difficult at 40 m/s.
 
-28 tracks are included, based on deathmatch maps. Havana will be added soon.
+Over 30 tracks are included, based on all deathmatch maps.
 
 Leaderboard HUD includes:
 
@@ -36,6 +36,8 @@ In fact, C-style =//=-prefixed comments work in these rules: when pasted into Ov
 ** Variables
 
 This list may be incomplete and is not guaranteed to be kept up-to-date, but it may be helpful.
+
+/It's definitely outdated now, because some variables have been given names now that Overwatch allows that./
 
 *** Global
 
